@@ -1,0 +1,57 @@
+<div class="col-md-6 col-sm-6 col-xs-6">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Gestion des catégories</div>
+    <div class="panel-body list-group">
+
+      <!--Boutton permettant d'aller vers le formulaire afin d'ajouter un categorie-->
+      <button class="MarginBottom"
+              (click)="onNewCategory()" *ngIf="mode!='newCategory' && mode!='editCategory'">
+            Add Category
+      </button>
+
+      <!--Ajouter un categorie-->
+      <div *ngIf="mode==='newCategory'" class="col-md-6 col-sm-9 col-xs-12">
+        <form #f="ngForm" (ngSubmit)="onSaveCategory(f.value)">
+          <div class="form-group">
+            <label class="control-label">Name: </label>
+            <input class="form-control" type="text" name="name" ngModel="" required>
+            <button class="btn btn-success MarginTop" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+
+      <!--Editer un categorie-->
+      <div *ngIf="mode==='editCategory'" class="col-md-6 col-sm-9 col-xs-12">
+        <form #f="ngForm" (ngSubmit)="onUpdateCategory(f.value)">
+          <div class="form-group">
+            <label class="control-label">Name: </label>
+            <input class="form-control" type="text" name="name" ngModel="" [(ngModel)]="currentCategory.name" required>
+            <button class="btn btn-success MarginTop" type="submit">Update</button>
+          </div>
+        </form>
+      </div>
+
+      <!--Affiche la list des Catégories-->
+      <div  *ngIf="mode==='list'">
+        <div  *ngIf="categories">
+          <button
+            class="list-group-item"
+            *ngFor="let category of categories._embedded.categories">
+            <div class="list-group-item-heading">
+              {{category.name}}
+              <button class="btn btn-danger pull-right   MarginLeft"
+                      (click)="onDeleteCategory(category)">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+              <button class="btn btn-success pull-right"
+                      (click)="onEditCategory(category)">
+                <span class="glyphicon glyphicon-edit"></span>
+              </button>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

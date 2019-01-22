@@ -1,0 +1,18 @@
+<div class="col-xs-4 col-sm-4 col-md-4">
+    <h4>Les categories</h4>
+    <div class="list-group" *ngIf="categories">
+     <button
+      class="list-group-item"
+      *ngFor="let category of categories._embedded.categories"
+      (click)="onGetProducts(category)"
+      [ngClass]="currentCategory && currentCategory._links.self===category._links.self ? 'active' : ''">
+       <div class="list-group-item-heading">
+         {{category.name}}
+       </div>
+     </button>
+    </div>
+</div>
+
+<!--*ngIf="categories": car on commence  à afficher
+ les catégories alors qu'elles ne sont pas encore chargés.
+ Donc je vais afficher la liste que si les catégories sont chargés -->
